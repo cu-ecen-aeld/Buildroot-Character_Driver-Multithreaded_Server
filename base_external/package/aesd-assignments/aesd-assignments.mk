@@ -4,17 +4,17 @@
 # AESD-ASSIGNMENTS
 #
 ##############################################################
-AESD_ASSIGNMENTS_VERSION = '96151353a1ff64934a4581290a120b7b736abb5b'
-AESD_ASSIGNMENTS_SITE = 'git@github.com:cu-ecen-aeld/assignments-3-and-later-Raj-097.git'
+AESD_ASSIGNMENTS_VERSION = 'c3f931c86084efa00c3447b092751fa9f190c790'
+AESD_ASSIGNMENTS_SITE = 'git@github.com:cu-ecen-aeld/Programs_for_Server_and_Device_Driver.git'
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
-
+# Build the server
 define AESD_ASSIGNMENTS_BUILD_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/server all
 endef
 
-
+# Install application and init script
 define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS	
 	$(INSTALL) -d $(TARGET_DIR)/usr/bin/
 	$(INSTALL) -m 0755 $(@D)/server/aesdsocket $(TARGET_DIR)/usr/bin/ 
@@ -25,3 +25,4 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 endef
 
 $(eval $(generic-package))
+# tell buildroot that its a generic package

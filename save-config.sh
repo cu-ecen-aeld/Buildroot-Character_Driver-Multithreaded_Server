@@ -14,3 +14,5 @@ if [ -e buildroot/.config ] && [ ls buildroot/output/build/linux-*/.config 1> /d
 		make -C buildroot linux-update-defconfig
 	fi
 fi
+
+# Updates the kernel defconfig file board/your_project/linux_kernel_defconfig

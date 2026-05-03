@@ -25,6 +25,10 @@ then
 		echo "Then add packages as needed to complete the installation, re-running ./save_config.sh as needed"
 		make -C buildroot defconfig BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT} BR2_DEFCONFIG=${AESD_DEFAULT_DEFCONFIG}
 	fi
+# At this point, Buildroot just knows:
+#  Which kernel version to use
+#  Whether to use a custom kernel config
+#  Where that kernel defconfig file lives (via BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE)
 else
 	echo "USING EXISTING BUILDROOT CONFIG"
 	echo "To force update, delete .config or make changes using make menuconfig and build again."
