@@ -1,0 +1,16 @@
+# ------------------------------------------------------------------------------
+# File        : Config.in
+#
+# Description : Buildroot configuration entry for the LDD package.
+#               Enables integration of the scull and misc-modules
+#               kernel drivers into the target image.
+#
+# Author      : Rajkumar Saravanakumar
+# ------------------------------------------------------------------------------
+
+config BR2_PACKAGE_LDD
+	bool "ldd"
+	help
+	  Builds and installs the LDD3 example kernel drivers,
+	  including the scull and misc-modules components,
+	  into the target root filesystem.

@@ -1,1 +1,12 @@
+# ------------------------------------------------------------------------------
+# File        : Config.in
+#
+# Description : Registers custom package configuration entries provided
+#               by the external Buildroot layer.
+#
+# Author      : Rajkumar Saravanakumar
+# ------------------------------------------------------------------------------
+
 source "$BR2_EXTERNAL_project_base_PATH/package/aesd-assignments/Config.in"
+
+source "$BR2_EXTERNAL_project_base_PATH/package/ldd/Config.in"

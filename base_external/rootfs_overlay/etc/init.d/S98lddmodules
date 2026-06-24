@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# ------------------------------------------------------------------------------
+# File        : S98lddmodules
+#
+# Description : SysV init script used to load and unload LDD kernel modules
+#               during system startup and shutdown.
+#
+# Purpose     : Automatically manages:
+#               - hello kernel module
+#               - faulty kernel module
+#               - SCULL character driver
+#
+#               Also creates and removes the required device nodes.
+#
+# Author      : Rajkumar Saravanakumar
+# ------------------------------------------------------------------------------
+
+case "$1" in
+    start)
+        echo "Loading LDD kernel modules..."
+
+        # Load hello module
+        modprobe hello
+
+        # Load faulty module
+        modprobe faulty
+
+        # Wait for module registration
+        sleep 1
+
+        # Create /dev/faulty device node
+        FAULTY_MAJOR=$(awk '$2=="faulty" {print $1}' /proc/devices)
+
+        if [ -n "$FAULTY_MAJOR" ]; then
+            echo "Faulty major number: $FAULTY_MAJOR"
+            mknod /dev/faulty c $FAULTY_MAJOR 0
+            chmod 666 /dev/faulty
+        else
+            echo "Failed to locate faulty major number"
+        fi
+
+        # Load SCULL driver
+        modprobe scull
+
+        # Wait for module registration
+        sleep 1
+
+        # Create SCULL device nodes
+        SCULL_MAJOR=$(awk '$2=="scull" {print $1}' /proc/devices)
+
+        if [ -n "$SCULL_MAJOR" ]; then
+            echo "SCULL major number: $SCULL_MAJOR"
+
+            mknod /dev/scull0 c $SCULL_MAJOR 0
+            mknod /dev/scull1 c $SCULL_MAJOR 1
+            mknod /dev/scull2 c $SCULL_MAJOR 2
+            mknod /dev/scull3 c $SCULL_MAJOR 3
+
+            chmod 666 /dev/scull*
+        else
+            echo "Failed to locate SCULL major number"
+        fi
+        ;;
+
+    stop)
+        echo "Unloading LDD kernel modules..."
+
+        # Remove device nodes
+        rm -f /dev/faulty
+        rm -f /dev/scull*
+
+        # Unload modules
+        rmmod scull
+        rmmod faulty
+        rmmod hello
+        ;;
+
+    restart)
+        $0 stop
+        $0 start
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
