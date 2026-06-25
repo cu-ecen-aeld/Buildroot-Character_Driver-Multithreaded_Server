@@ -25,13 +25,12 @@ AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 # Build AESD socket server and AESD character device driver module
 define AESD_ASSIGNMENTS_BUILD_CMDS
-	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/server all
+	$(MAKE) $(TARGET_CONFIGURE_OPTS) \ 
+		CPPFLAGS="$(TARGET_CPPFLAGS) -Iinclude -I../aesd-char-driver" \
+		-C $(@D)/server all
 
-	$(MAKE) -C $(LINUX_DIR) \
-		M=$(@D)/aesd-char-driver \
-		ARCH=$(KERNEL_ARCH) \
-		CROSS_COMPILE=$(TARGET_CROSS) \
-		modules
+	$(MAKE) -C $(@D)/aesd-char-driver \
+	KERNEL_SRC=$(LINUX_DIR)
 endef
 
 # Install binaries and scripts into target filesystem
