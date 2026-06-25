@@ -18,7 +18,7 @@
 # ------------------------------------------------------------------------------
 
 # Remote Git repository containing server and driver source code and scripts
-AESD_ASSIGNMENTS_VERSION = 'cd9a63a0884f7228a66c0d4918d190837434e5e5' 
+AESD_ASSIGNMENTS_VERSION = 'baccc837531b556dcba20fdb2b68419985b736fd' 
 AESD_ASSIGNMENTS_SITE = 'git@github.com:cu-ecen-aeld/Programs_for_Server_and_Device_Driver.git'
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
