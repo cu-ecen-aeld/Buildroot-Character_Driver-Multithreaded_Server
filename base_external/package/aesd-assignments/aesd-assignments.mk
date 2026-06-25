@@ -30,7 +30,10 @@ define AESD_ASSIGNMENTS_BUILD_CMDS
 		-C $(@D)/server all
 
 	$(MAKE) -C $(@D)/aesd-char-driver \
-	KERNEL_SRC=$(LINUX_DIR)
+    ARCH=$(KERNEL_ARCH) \
+    CROSS_COMPILE=$(TARGET_CROSS) \
+    KERNEL_SRC=$(LINUX_DIR) \
+    modules
 endef
 
 # Install binaries and scripts into target filesystem
