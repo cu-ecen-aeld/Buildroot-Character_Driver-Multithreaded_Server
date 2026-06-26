@@ -59,9 +59,6 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 0755 $(@D)/aesd-char-driver/aesdchar_unload $(TARGET_DIR)/usr/bin/
 endef
 
-# Register AESD character driver as a kernel module package
-$(eval $(kernel-module))
-
 # Register this as a Buildroot generic package
 $(eval $(generic-package))
 
