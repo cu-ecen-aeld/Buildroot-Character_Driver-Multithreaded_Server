@@ -23,6 +23,10 @@ AESD_ASSIGNMENTS_SITE = 'git@github.com:cu-ecen-aeld/Programs_for_Server_and_Dev
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
+AESD_ASSIGNMENTS_MODULE_SUBDIRS = aesd-char-driver
+
+$(eval $(kernel-module))
+
 # Build AESD socket server and AESD character device driver module
 define AESD_ASSIGNMENTS_BUILD_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) \
@@ -47,9 +51,9 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 0755 $(@D)/server/scripts/aesdsocket-start-stop.sh $(TARGET_DIR)/etc/init.d/S99aesdsocket
 
 	# Install AESD char kernel module
-	$(INSTALL) -d $(TARGET_DIR)/lib/modules
-	$(INSTALL) -m 0644 $(@D)/aesd-char-driver/aesdchar.ko $(TARGET_DIR)/lib/modules/
-
+	$(INSTALL) -d $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/extra
+	$(INSTALL) -m 0644 $(@D)/aesd-char-driver/aesdchar.ko $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/extra/
+	
 	# Install char driver SysV init scripts for automatic load and unload
 	$(INSTALL) -d $(TARGET_DIR)/etc/init.d
 	$(INSTALL) -m 0755 $(@D)/aesd-char-driver/aesdchar-start-stop.sh $(TARGET_DIR)/etc/init.d/S90aesdchar
