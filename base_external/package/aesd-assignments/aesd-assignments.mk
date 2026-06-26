@@ -44,7 +44,7 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 
 	# Install socket server SysV init script for automatic startup and shutdown
 	$(INSTALL) -d $(TARGET_DIR)/etc/init.d/
-	$(INSTALL) -m 0755 $(@D)/server/aesdsocket-start-stop.sh $(TARGET_DIR)/etc/init.d/S99aesdsocket
+	$(INSTALL) -m 0755 $(@D)/server/scripts/aesdsocket-start-stop.sh $(TARGET_DIR)/etc/init.d/S99aesdsocket
 
 	# Install AESD char kernel module
 	$(INSTALL) -d $(TARGET_DIR)/lib/modules
@@ -52,7 +52,7 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 
 	# Install char driver SysV init scripts for automatic load and unload
 	$(INSTALL) -d $(TARGET_DIR)/etc/init.d
-	$(INSTALL) -m 0755 $(@D)/aesd-char-driver/scripts/aesdchar-start-stop.sh $(TARGET_DIR)/etc/init.d/S90aesdchar
+	$(INSTALL) -m 0755 $(@D)/aesd-char-driver/aesdchar-start-stop.sh $(TARGET_DIR)/etc/init.d/S90aesdchar
 
 	# Install AESD character driver helper scripts
 	$(INSTALL) -m 0755 $(@D)/aesd-char-driver/aesdchar_load $(TARGET_DIR)/usr/bin/
