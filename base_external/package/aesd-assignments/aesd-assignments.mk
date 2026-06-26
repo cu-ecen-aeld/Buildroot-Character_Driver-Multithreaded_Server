@@ -30,7 +30,7 @@ $(eval $(kernel-module))
 # Build AESD socket server and AESD character device driver module
 define AESD_ASSIGNMENTS_BUILD_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) \
-		CPPFLAGS="$(TARGET_CPPFLAGS) -Iinclude -I../aesd-char-driver" \
+		CPPFLAGS="$(TARGET_CPPFLAGS) -Iinclude -I../aesd-char-driver -DUSE_AESD_CHAR_DEVICE" \
 		-C $(@D)/server all
 
 	$(MAKE) -C $(@D)/aesd-char-driver \
